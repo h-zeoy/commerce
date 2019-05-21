@@ -1,0 +1,36 @@
+.search-item {
+    width: 100%;
+    font-size: .14rem;
+    overflow: hidden;
+    background: #fff;
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: .07rem 0;
+        li {
+            flex: 1;
+            height: .27rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            i {
+                display: block;
+                height: .15rem;
+                width: .15rem;
+                background: url('../../../static/image/list/top.png') no-repeat center center;
+                background-size: 100% 100%;
+            } 
+        }
+        .active {
+            color: #FF4A7A;
+            i {
+                background: url('../../../static/image/list/top2.png') no-repeat center center;
+                background-size: 100% 100%;
+                transform:rotate(180deg);
+            }
+        }
+    }
+
+}

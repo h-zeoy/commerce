@@ -1,0 +1,238 @@
+@import '../../static/styles/_border.less';
+
+//大列表页
+.list-item1-wrap {
+    img {
+        width: 100%;
+        height: 1.65rem;
+    }
+    .list-item-title {
+        padding: .12rem;
+        .title {
+            margin-bottom: .08rem;
+            color: #333;
+            font-size: .14rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+        }
+        .list-p {
+            width: 100%;
+            height: .2rem;
+            position: relative;
+            margin: .1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .list-item-price {
+                color: #FF1A1A;
+                font-weight: 700;
+            }
+            .list-item-btn {
+                margin-right: .12rem;
+                width: .6rem;
+                height: .22rem;
+                line-height: .22rem;
+                text-align: center;
+                .border(1px,#333,solid,24px);
+                color: #333;
+                font-size: .12rem;
+                .title {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 100%;
+                    font-size: .13rem;
+                }
+                .list-item-price {
+                    color: #ff1a1a;
+                    font-size: .14rem;
+                }
+            
+            }
+        }
+    }
+}
+// 列表页 一行2个
+.list-item2:nth-child(2n+1) {
+    border-bottom: .04rem solid #f2f4f6;
+    border-right: .04rem solid #f2f4f6;
+}
+.list-item2:nth-child(2n) {
+    border-bottom: .04rem solid #f2f4f6;
+}
+.list-item2 {
+    background: #fff;
+    width: 50%;
+    // width: 1.86rem;
+    // 
+    img {
+       width: 100%;
+       height: 1.86rem;
+    }
+    .list-item-title {
+        padding: .1rem .08rem .08rem .08rem;
+        width: 100%;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+            font-size: .13rem;
+        }
+        .list-item-price {
+            color: #ff1a1a;
+            font-size: .14rem;
+        }
+    }
+}
+// 订单
+
+.list-item3 {
+    width: 100%;
+    
+    .item3-info {
+        height: .32rem;
+        width: 100%;
+        padding:0  .12rem;
+        overflow: hidden;
+        .border(0 0 1px 0, rgba(0,0,0,.08), solid);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        span {
+            color: #3d3d3d;
+            font-size: .13rem;
+        }
+        .status {
+            color: #ff1a1a;
+        }
+    }
+    .item3-content {
+        display: flex;
+        padding: .08rem .12rem;
+        // justify-content: space-between;
+        align-content: center;
+        background: #f9fafb;
+        img {
+            width: .68rem;
+            height: .68rem;
+            margin-right: .26rem;
+        }
+        .item3-content-right {
+            flex: 1;
+            .item3-title {
+                display: -webkit-box;
+                overflow: hidden;
+                word-break: break-all;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                color: #3d3d3d;
+                font-size: .12rem;
+            }
+            .item3-sku {
+                color: #8f8f8f;
+                margin-top: .04rem;
+                font-size: .12rem;
+            }
+            .item3-money {
+                display: flex;
+                margin-top: .09rem;
+                justify-content: space-between;
+                align-items: center;
+                // padding-bottom: .05rem;
+                .item3-price {
+                    font-size: .14rem;
+                    color: #3d3d3d;
+                }
+                .item3-num {
+                    font-size: .12rem;
+                    color: #8f8f8f;
+                }
+            }
+        }
+    }
+    .item3-total {
+        .item3-height {
+            width: 100%;
+            height: .32rem;
+            line-height:  .32rem;
+            padding:0  .12rem;
+            text-align: right;
+        }
+        .item3-total-info {
+            font-size: .12rem;
+            color: #333;
+            .border(0 0 1px 0, rgba(0,0,0,.08), solid);
+        }
+        .item3-btns {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            div {
+                .border(1px, rgba(51,51,51,.6), solid,  85px);
+                text-align: center;
+                font-size: .11rem;
+                color: #3d3d3d;
+                height: .22rem;
+                line-height: .22rem;
+                padding: 0 .08rem;
+                margin-left: .1rem;
+            }
+            .pay-btn {
+                color: #FF1A1A;
+                .border(1px, #FF1A1A, solid,  85px);
+            }
+        }
+    }
+}
+
+// 地址
+.address-list {
+    padding: .15rem .12rem 0;
+    margin-bottom: .08rem;
+    background-color: #fff;
+    .receive-info {
+        font-size: .16rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .address-info {
+        font-size: .12rem;
+        padding: .12rem 0 .15rem 0;
+        color: #999;
+        .border(0 0 1px 0,  #E4E4E4, solid);
+    }
+    .address-editor {
+        padding: .13rem 0;
+        color: #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: .12rem;
+        p {
+            padding-left: .22rem;
+            background: url('../../static/image/list//no-selected.png') no-repeat center left;
+            background-size: .16rem .16rem;
+        }
+        .set-default {
+            background: url('../../static/image/list//selected.png') no-repeat center left;
+            background-size: .16rem .16rem;
+        }
+
+        .address-btn {
+            span {
+                margin-left: .12rem;
+                padding: .05rem .15rem;
+                .border(1px,  #999, solid, 5px);
+                
+            }
+        }
+    }
+}
