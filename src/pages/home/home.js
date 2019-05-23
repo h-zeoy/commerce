@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { SwiperComponent } from '../../../components/plugins/swiper';
 import ComponentNav from '../../../components/componentNav/componentNav';
 import ComponentList from '../../../components/componentList/componentList';
@@ -13,7 +14,7 @@ import h2 from '../../../static/image/home/h2.png';
 import h3 from '../../../static/image/home/h3.png';
 
 import './home.less';
-import 'whatwg-fetch';
+
 
 class Home extends Component {
   constructor(props) {
@@ -40,27 +41,27 @@ class Home extends Component {
   }
 
   async getTodaySale() {
-    const _ = await fetch('http://localhost:3000/api/baby/todaysale?channel=今日特卖&type=', {
-      mode: 'cors',
-      cache: 'default',
-    }).then(response => response.json());
+    const _ = await axios.get('api/baby/todaysale', { params: {
+      channel: '今日特卖',
+      type: '',
+    } });
     this.isUnmount
-      ? this.setState({ listData: [..._.data] })
+      ? this.setState({ listData: [..._.data.data] })
       : '';
   }
 
   async homeNavClick(item) {
     const type = item.title !== '今日特卖' ? item.title : '';
-    const _ = await fetch(`http://localhost:3000/api/baby/todaysale?channel=今日特卖&type=${type}`, {
-      mode: 'cors',
-      cache: 'default',
-    }).then(response => response.json());
-    this.isUnmount
-      ? this.setState({ listData: [..._.data] })
-      : '';
+    const _ = await axios.get('api/baby/todaysale', { params: {
+      channel: '今日特卖',
+      type,
+    } });
     this.setState({
       navIndex: item.index,
     });
+    this.isUnmount
+      ? this.setState({ listData: [..._.data.data] })
+      : '';
     console.log('父组件的', item.title);
   }
 

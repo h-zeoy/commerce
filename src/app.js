@@ -9,6 +9,8 @@ import addAddress from 'pages/address/addAddress';
 import goodsList from 'pages/goods/goodsList';
 import goodsDetail from 'pages/goods/goodsDetail';
 import goodsEdit from '@/backstage/goodsEdit';
+import login from './pages/user/login';
+import register from './pages/user/register';
 
 class App extends Component {
   render() {
@@ -25,6 +27,8 @@ class App extends Component {
           <Route exact path="/goodsEdit" component={goodsEdit} />
           <Route exact path="/goodsDetail" component={goodsDetail} />
           <Route exact path="/goodsList" component={goodsList} />
+          <Route exact path="/login" component={login} />
+          <Route exact path="/register" component={register} />
         </Switch>
       </div>
     );
