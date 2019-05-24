@@ -38,7 +38,7 @@ module.exports = {
     index: path.resolve(__dirname, '../public/index.html'),
     // 下面是dev-server的端口号，可以自行更改
     port: 9090,
-    // host: '192.168.124.5',
+    // host: '10.10.61.1',
     host: 'localhost',
     // 下面表示是否自定代开浏览器
     autoOpenBrowser: true,

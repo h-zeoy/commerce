@@ -5,6 +5,7 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.conf');
 const utils = require('./utils');
 const config = require('../config');
+const alias = require('../utils/resolve');
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
@@ -13,6 +14,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     filename: utils.assetsPath('[name].[chunkhash:16].js'),
     // chunkFilename: utils.assetsPath('[id].[chunkhash].js')
   },
+  resolve: alias,
   plugins: [
     new HtmlWebpackPlugin({
       template: config.build.index,
@@ -42,6 +44,24 @@ const webpackConfig = merge(baseWebpackConfig, {
     }, {
       test: /\.less$/,
       loader: 'style-loader!css-loader!less-loader',
+    },
+    {
+      test: /\.(jpe?g|png|gif)$/,
+      use: [{
+        loader: 'url-loader',
+        options: {
+          limit: 8192, // 小于8k的图片自动转成base64格式，并且不会存在实体图片
+          outputPath: utils.assetsPath('images'), // 图片打包后存放的目录
+        },
+      }],
+    },
+    {
+      test: /\.(htm|html)$/,
+      use: 'html-withimg-loader',
+    },
+    {
+      test: /\.(eot|ttf|woff|svg)$/,
+      use: 'file-loader',
     }],
   },
 });

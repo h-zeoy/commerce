@@ -9,6 +9,7 @@ module.exports = {
     pages: path.join(__dirname, '../src/pages'),
     styles: path.join(__dirname, '../static/styles'),
     images: path.join(__dirname, '../static/image'),
+    utils: path.join(__dirname, '../utils'),
   },
   // 省略后缀
   extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.less'],
