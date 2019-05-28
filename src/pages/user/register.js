@@ -79,7 +79,7 @@ class Signup extends React.Component {
     }
   }
 
-  async sigin(str) {
+  async sigup(str) {
     const { userVal, userPassVal, telVal, codeVal } = this.state;
     if (str === 'user') {
       // 用户名验证
@@ -179,7 +179,7 @@ class Signup extends React.Component {
             />
             <p id="Msg" className="input_error Msg"><i />两次输入的密码不一致，请重新输入</p>
           </li>
-          <li onClick={this.sigin.bind(this, 'user')}> 注册</li>
+          <li onClick={this.sigup.bind(this, 'user')}> 注册</li>
         </ul>
         <ul className="tab-box">
           <li>
@@ -195,7 +195,7 @@ class Signup extends React.Component {
           }
             <p id="Msg" className="input_error Msg"><i />请您输入正确的验证码</p>
           </li>
-          <li>注册</li>
+          <li onClick={this.sigup.bind(this, 'tel')}>注册</li>
         </ul>
       </Tabs>
     );

@@ -1,0 +1,159 @@
+@import '../../../static/styles/_border.less';
+
+.address-box {
+    position: relative;
+    .default-address {
+        padding: 0 .15rem;
+        justify-content: space-between;
+        margin-top: .1rem;
+        color: #8f8f8f;
+        padding: 0.12rem 0;
+        background: #fff;
+        // border-radius: .18rem;
+        display: flex;
+        align-items: center;
+        .addTitle {
+            width: 2.8rem;
+        }
+        .addIcon {
+            margin: 0 .2rem;
+            width: .24rem;
+            height: .24rem;
+            background: url('../../../static/image/pay/add.png') no-repeat center center;
+            background-size: 100% 100%;
+        }
+        .location-icon {
+            width: .36rem;
+            height: .36rem;
+            background: url('../../../static/image/pay/address.png') no-repeat center center;
+            background-size: 100% 100%;
+            margin: 0 .12rem;
+        }
+        .rightIcon {
+            width: .24rem;
+            height: .24rem;
+            background: url('../../../static/image/pay/right.png') no-repeat center center;
+            background-size: 100% 100%;
+        }
+        .address-main {
+            color: #3d3d3d;
+            font-size: .15rem;
+            font-weight: 400;
+            width: 2.8rem;
+            i {
+                margin-bottom: .12rem;
+                display: block;
+            }
+            .name {
+                margin-right: .1rem;
+            }
+        }
+        .address {
+            font-size: .12rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    }
+}
+.pay-box {
+    background: #fff;
+    // 
+    margin-top: .1rem;
+    .pay-box-hd {
+        padding-top: .04rem;
+        height: .28rem;
+        line-height: .28rem;
+        color: #999;
+        font-size: .12rem;
+        padding: 0 .12rem;
+    }
+    .pay-box-bd {
+        padding: 0 .12rem;
+    }
+    
+}
+.payment {
+    padding: 0 .12rem;
+    background: #fff;
+    margin-bottom: .45rem;
+    .pay-box-hd {
+        font-size: .12rem;
+        padding-top: .04rem;
+        height: .27rem;
+        line-height: .27rem;
+        color: #666;
+    }
+    li {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: .1rem;
+        padding-top: .05rem;
+        i:first-child {
+            width: .28rem;
+            height: .28rem;
+            margin-right: .12rem;
+        }
+        i:last-child {
+            width: .2rem;
+            height: .2rem;
+            background:url('../../../static/image/list/no-selected.png') no-repeat center center;
+            background-size: 100% 100%;
+        }
+        span {
+            flex: 7;
+        }
+    }
+    .wxpay>i:first-child {
+        background:url('../../../static/image/pay/wx.png') no-repeat center center;
+        background-size: 100% 100%;
+    }
+    .alipay>i:first-child {
+        background:url('../../../static/image/pay/ali.png') no-repeat center center;
+        background-size: 100% 100%;
+    }
+
+}
+.gopay-bar {
+    height: .45rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-weight: 400;
+    
+    font-size: .15rem;
+    .pay-info {
+        flex: 1;
+        text-align: right;
+        background: #fff;
+        height: 100%;
+        padding-right: .1rem;
+        .pay-num {
+            color: #ff1a1a;
+            font-weight: 700;
+            font-size: .14rem;
+            font-family: 'PingFang-SC-Regular';
+            padding-top: .05rem;
+            
+        }
+        .pay-tips {
+            color: #999;
+            font-size: .12rem;
+        }
+    }
+    .pay-btn {
+        height: 100%;
+        width:1.08rem;
+        line-height: .45rem;
+        text-align: center;
+        color: #fff;
+        background: #ff1a1a;
+    }
+}

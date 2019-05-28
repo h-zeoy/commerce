@@ -1,0 +1,35 @@
+@import '../../../static/styles/_border.less';
+.search-wrap {
+    background: #fafafa;
+    min-height: 100vh;
+    
+}
+.search-name {
+    padding-top: .12rem;
+    
+    h3 {
+        height: .325rem;
+        padding-left: .12rem;
+        line-height: .325rem;
+        color: #333;
+        background: #fafafa;
+        font-weight: 100;
+    }
+    ul {
+        background: #ffffff;
+        display: flex;
+        flex-wrap: wrap;
+        
+        .border(1px 0 1px 0, #e6e6e6, solid);
+        li {
+            width: .92rem;
+            height: 1.05rem;
+            img {
+                height: .6rem;
+                width: .6rem;
+                margin: .13rem .17rem .06rem .17rem;
+            }
+            text-align: center;
+        }
+    }
+}

@@ -1,6 +1,8 @@
+@import '../../static/styles/_border.less';
 .list-item1-wrap, .list-item2-wrap{
     width: 100%;
     overflow: hidden;
+    margin-bottom:  .38rem;
 }
 .list-item1-wrap {
     background: #fff;
@@ -9,4 +11,35 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+.pay-list-wrap {
+    width: 100%;
+    padding: 0 .15rem;
+    .border(1px 0 1px 0, rgba(0,0,0,.08), solid);
+    .order-sum {
+        padding: .06rem 0;
+        overflow: hidden;
+        color: #8f8f8f;
+        font-size: .16rem;
+        text-align: right;
+        .order-sum-price{
+            color: #ff1a1a;
+            font-weight: 700;
+            font-size: .18rem;
+        }
+    }
+    .order-remark {
+        width: 100%;
+        height: .3rem;
+        line-height: .3rem;
+        margin-top: .2rem;
+        input {
+            width: 100%;
+            height: .3rem;
+            border-bottom: 1px solid #8f8f8f;
+        }
+    }
+    .order-detail-re {
+        border-bottom: 1px solid #8f8f8f;
+    }
 }

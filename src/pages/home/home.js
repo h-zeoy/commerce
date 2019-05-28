@@ -99,9 +99,8 @@ class Home extends Component {
           <li onClick={this.goList.bind(this, 3)}><img src={h3} alt="新品特惠" /></li>
         </ul>
         <ComponentNav navData={navdata} comNav={this.homeNavClick.bind(this)} />
-        <p className="home-list-header"> 每日新品 </p>
+        <p className="home-list-header"> 每日特卖 </p>
         <ComponentList listData={listData} type="big" />
-        <p className="bian">暂无数据</p>
         <Tabbar />
       </div>
 

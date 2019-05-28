@@ -57,10 +57,10 @@ class Signin extends React.Component {
 
   async sigin(str) {
     const { userVal, userPassVal, telVal, codeVal } = this.state;
+    let flag = true;
+    let _ = {};
     if (str === 'user') {
       // 用户名验证
-      let flag = true;
-      let _ = {};
       if (!/^(?!\d+$)[\da-zA-Z]+$/.test(userVal)) {
         flag = false;
       }
@@ -69,18 +69,9 @@ class Signin extends React.Component {
         flag = false;
       }
       const data = { 'way': 1, 'username': userVal, 'password': userPassVal };
-      flag ? _ = await axios.post('api/users/signin', data)
-        .then((_) => {
-          if (_.success) {
-            console.log(_.data);
-          } else {
-            console.log(_.data);
-          }
-        }) : '';
+      flag ? _ = (await axios.post('api/users/signin', data)).data : '';
     } else {
       // 手机号验证
-      let flag = true;
-      let _ = {};
       const data = { 'way': 2, 'tel': telVal, 'code': codeVal, 'TemplateCode': 'SMS_165677475' };
       if (!/^[1][3,4,5,7,8][0-9]{9}$/.test(telVal)) {
         flag = false;
@@ -91,14 +82,14 @@ class Signin extends React.Component {
         return 0;
       }
       flag ? _ = (await axios.post('api/users/signin', data)).data : '';
-      if (_.success && flag) {
-        document.cookie = `X-Root-Auth-Token=${_.data.token}`;
-        const { history } = this.props;
-        console.log('登录成功');
-        history.push('/home');
-      } else {
-        console.log(_.data.msg);
-      }
+    }
+    if (_.success && flag) {
+      document.cookie = `X-Root-Auth-Token=${_.data.token}`;
+      const { history } = this.props;
+      console.log('登录成功');
+      history.push('/home');
+    } else {
+      console.log(_.data.msg);
     }
   }
 

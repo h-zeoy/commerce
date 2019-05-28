@@ -77,6 +77,38 @@ class CompomemtListBig extends React.Component {
           </div>
         </div>
       );
+    } else if (type === 'pay') {
+      return (
+        <div className="order-list">
+          <div className="order-item">
+            <img src={item.img} alt="" />
+            <div className="order-info">
+              <h4>{item.name}</h4>
+              <p>{item.info}</p>
+              <div className="order-item-price">
+                <p>¥{item.price}</p>
+                <p className="order-item-num">×{item.num}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (type === 'orderDetail') {
+      return (
+        <div className="order-list">
+          <div className="order-item">
+            <img src={item.img} alt="" />
+            <div className="order-info">
+              <h4>{item.name}</h4>
+              <p>{item.info}</p>
+              <div className="order-item-price">
+                <p>¥{item.price}</p>
+                <p className="order-item-num">×{item.num}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
   }
 }

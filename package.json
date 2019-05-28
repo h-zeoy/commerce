@@ -55,6 +55,7 @@
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/runtime": "^7.4.4",
     "antd-mobile": "^2.2.13",
+    "array-tree-filter": "^2.1.0",
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.11.2",
     "babel-polyfill": "^6.26.0",

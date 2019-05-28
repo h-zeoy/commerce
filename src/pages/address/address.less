@@ -1,14 +1,50 @@
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+.address-addedit-wrap {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    padding: 0 .15rem;
+    p {
+        width: 100%;
+        height: .45rem;
+        width: 100%;
+        
+        display: flex;
+        input {
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+}
+
+.address-add {
     width: 100%;
     height: .38rem;
     background: #FF1A1A;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
     line-height: .38rem;
     font-size: .15rem;
     font-weight: 600;
+    text-align: center;
+    color: #fff;
+    margin-top: .4rem;
+    border-radius: .27rem;
+}
+/* WebKit browsers */
+input::-webkit-input-placeholder {
+    color: #212121;
+}
+/* Mozilla Firefox 4 to 18 */
+input:-moz-placeholder {
+    color: #212121;
+    opacity: 1;
+}
+/* Mozilla Firefox 19+ */
+input::-moz-placeholder {
+    color: #212121;
+    opacity: 1;
+}
+/* Internet Explorer 10+ */
+input:-ms-input-placeholder {
+    color: #212121;
+
 }
