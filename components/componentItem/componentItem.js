@@ -10,6 +10,21 @@ class CompomemtListBig extends React.Component {
     handlList(item);
   }
 
+  handleEdit(item) {
+    const { handleChildEdit } = this.props;
+    handleChildEdit(item);
+  }
+
+  handleDelete(item) {
+    const { handleChildDelete } = this.props;
+    handleChildDelete(item);
+  }
+
+  handleAddress(item) {
+    const { handleAddressList } = this.props;
+    handleAddressList(item);
+  }
+
   render() {
     const { item, type } = this.props;
     if (type === 'big') {
@@ -28,7 +43,11 @@ class CompomemtListBig extends React.Component {
           <img src={item.thumbnailUrl} alt="" />
           <div className="list-item-title">
             <p className="title">{item.title}</p>
-            <p className="list-item-price">¥{item.price}</p>
+            {
+              item.linePrice
+                ? <p className="list-item-price"><span>¥{item.price}</span><span className="line-price">¥{item.price}</span></p>
+                : <p className="list-item-price"><span>¥{item.price}</span></p>
+            }
           </div>
         </div>
       );
@@ -60,19 +79,19 @@ class CompomemtListBig extends React.Component {
       );
     } else if (type === 'address') {
       return (
-        <div className="address-list">
+        <div className="address-list" onClick={this.handleAddress.bind(this, item)}>
           <div className="receive-info">
-            <span className="receive-name">{item.name}</span>
+            <span className="receive-name">{item.realName}</span>
             <span className="receive-phonenumber">{item.phone}</span>
           </div>
           <div className="address-info">
-            <span>{item.address}</span>
+            <span>{item.street}</span>
           </div>
           <div className="address-editor">
-            <p className={item.default ? 'set-default' : ''}>默认地址</p>
+            <p className={item.isDefault ? 'set-default' : ''}>默认地址</p>
             <div className="address-btn">
-              <span className="edit-btn">编辑</span>
-              <span className="del-btn">删除</span>
+              <span className="edit-btn" onClick={this.handleEdit.bind(this, item)}>编辑</span>
+              <span className="del-btn" onClick={this.handleDelete.bind(this, item)}>删除</span>
             </div>
           </div>
         </div>
@@ -105,6 +124,57 @@ class CompomemtListBig extends React.Component {
                 <p>¥{item.price}</p>
                 <p className="order-item-num">×{item.num}</p>
               </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (type === 'brand') {
+      return (
+        <div className="product-wrap">
+          <div className="product-img">
+            <img className="item-img lazy" src="http://b1.hucdn.com/upload/tuan/1904/26/49420833940000_750x350.jpg" alt="" />
+          </div>
+          <div className="product-info">
+            <p className="title">{item.name}</p>
+            <div className="tags_bubble">
+              <span className="tag0">清仓</span>
+              <span className="tag1">{item.zhekou}折</span>
+            </div>
+            <span className="how-much-buy">{item.person}人已团</span>
+            <div className="price-info">
+              <span className="cur-price">
+                <span className="currency">¥</span><span className="price-num">{item.price}</span>
+              </span>
+              <span className="old-price">
+                <span className="currency">¥{item.linePrice}</span>
+              </span>
+
+              <div className="instant-buy"><span className="instant-buy-text">立即抢</span></div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (type === 'hot') {
+      return (
+        <div className="product-wrap hot-wrap">
+          <div className="top-label">
+            <span className="top-level">TOP1</span>
+            <span className="top-tags">最受粉丝欢迎</span>
+          </div>
+          <div className="product-img">
+            <img className="item-img lazy" src="http://b1.hucdn.com/upload/tuan/1904/26/49420833940000_750x350.jpg" alt="" />
+          </div>
+          <div className="product-info">
+            <p className="title">{item.name}</p>
+            <p className="bian-p" />
+            <div className="price-info">
+              <span className="cur-price">
+                <span className="currency">¥</span><span className="price-num">{item.price}</span>
+              </span>
+              <span className="old-price">
+                <span className="currency">¥{item.linePrice}</span>
+              </span>
+              <span className="how-much-sold"><img className="hot-img" src="http://h0.hucdn.com/open/201822/82609412b26b5412_30x30.png" alt="" />爆卖10万件</span>
             </div>
           </div>
         </div>

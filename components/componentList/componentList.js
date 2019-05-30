@@ -15,7 +15,6 @@ class CompomemtList extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { listData } = this.props;
-    const { data } = this.state;
     if (nextProps.listData !== listData) {
       this.setState({
         data: [...nextProps.listData],
@@ -23,7 +22,7 @@ class CompomemtList extends React.Component {
     }
   }
 
-  async handleClickList(item) {
+  handleClickList(item) {
     const { history } = this.props;
     console.log(history);
     history.push({
@@ -33,16 +32,74 @@ class CompomemtList extends React.Component {
     console.log('list父组件的', item.goodsId);
   }
 
+  handleClickEdit(item) {
+    const { handleEdit } = this.props;
+    handleEdit(item);
+    console.log('list父组件的', item.id);
+  }
+
+  handleChildDelete(item) {
+    const { handleDelete } = this.props;
+    handleDelete(item);
+  }
+
+  handleAddressList(item) {
+    const { handleClick } = this.props;
+    handleClick(item);
+  }
+
   render() {
     const { data } = this.state;
     const { type } = this.props;
-    if (type === 'big' || type === 'order' || type === 'address') {
+    if (type === 'big' || type === 'order') {
       return (
         <div className="list-item1-wrap">
           {
             data.map((item) => {
               return (
-                <ComponentItem item={item} type={type} key={Math.random()} handlList={this.handleClickList.bind(this)} />
+                <ComponentItem
+                  item={item}
+                  type={type}
+                  key={Math.random()}
+                  handlList={this.handleClickList.bind(this)}
+                />
+              );
+            })
+          }
+        </div>
+      );
+    } else if (type === 'brand' || type === 'hot') {
+      return (
+        <div className="brand-list-wrap">
+          {
+            data.map((item) => {
+              return (
+                <ComponentItem
+                  item={item}
+                  type={type}
+                  key={Math.random()}
+                  // handlList={this.handleClickList.bind(this)}
+                />
+              );
+            })
+          }
+        </div>
+      );
+    } else if (type === 'address') {
+      return (
+        <div className="list-item1-wrap address-wrap margin">
+          {
+            data.map((item) => {
+              return (
+                <ComponentItem
+                  item={item}
+                  type={type}
+                  key={Math.random()}
+                  handlList={this.handleClickList.bind(this)}
+                  handleChildEdit={this.handleClickEdit.bind(this)}
+                  handleChildDelete={this.handleChildDelete.bind(this)}
+                  handleAddressList={this.handleAddressList.bind(this)}
+                />
               );
             })
           }

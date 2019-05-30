@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { SwiperComponent } from '../../../components/plugins/swiper';
 import ComponentNav from '../../../components/componentNav/componentNav';
 import ComponentList from '../../../components/componentList/componentList';
 import Tabbar from '../../../components/componentTabbar/componentTabbar';
 import navdata from '../../../utils/navData';
-import banner1 from '../../../static/image/banner/banner1.jpg';
+import banner1 from '../../../static/image/banner/banner5.jpg';
 import banner2 from '../../../static/image/banner/banner2.jpg';
 import banner3 from '../../../static/image/banner/banner3.jpg';
 import banner4 from '../../../static/image/banner/banner4.jpg';
@@ -20,7 +21,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgUrl: [banner1, banner2, banner3, banner4],
       navIndex: 1,
       listData: [],
     };
@@ -76,20 +76,23 @@ class Home extends Component {
   }
 
   render() {
-    const { imgUrl, listData } = this.state;
+    const { listData } = this.state;
     return (
       <div className="wrap">
         <aside className="swiper-container swiper-container-banner">
           <ul className="swiper-wrapper">
-            {
-              imgUrl.map((it) => {
-                return (
-                  <li className="swiper-slide" key={Math.random()}>
-                    <img src={it} alt="" />
-                  </li>
-                );
-              })
-            }
+            <li className="swiper-slide">
+              <Link to="/activity/one"><img src={banner1} alt="" /></Link>
+            </li>
+            <li className="swiper-slide">
+              <img src={banner2} alt="" />
+            </li>
+            <li className="swiper-slide">
+              <Link to="/activity/two"><img src={banner3} alt="" /></Link>
+            </li>
+            <li className="swiper-slide">
+              <img src={banner4} alt="" />
+            </li>
           </ul>
           <div className="swiper-pagination" />
         </aside>

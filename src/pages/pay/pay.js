@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import NavBar from 'components/plugins/navbar';
 import ComponentList from 'components/componentList/componentList';
 import './pay.less';
+import Address from '../address/addressList';
 
 class pay extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isAddress: false,
+      adder: {},
       goodsData: [
         { img: 'https://b1.hucdn.com/upload/item/1705/08/26787164153231_800x800.jpg!100x100.webp',
           name: '5/4/2只装特大号喜家家被子专用收纳袋换季收纳必备带手提装被子的袋子',
@@ -25,12 +28,26 @@ class pay extends Component {
   }
 
   componentWillMount() {
+    const adder = (sessionStorage.getItem('address') || sessionStorage.getItem('seleAddr'));
+    adder
+      ? this.setState({
+        isAddress: true,
+        adder: JSON.parse(adder),
+      })
+      : '';
+  }
+
+  handleClick() {
     const { history } = this.props;
-    // console.log(history.location.pathname);
+    const query = ((history.location.search).split('?')[1]).split('=')[1];
+    history.push({
+      pathname: '/address',
+      search: `?orderId=${query}`,
+    });
   }
 
   render() {
-    const { isAddress, goodsData } = this.state;
+    const { isAddress, goodsData, adder } = this.state;
     return (
       <div className="pay-wrap">
         <NavBar title="确认订单" />
@@ -38,13 +55,13 @@ class pay extends Component {
           <div className="address-box">
             {
               isAddress ? (
-                <div className="default-address">
+                <div className="default-address" onClick={this.handleClick.bind(this)}>
                   <span className="location-icon" />
                   <p className="address-main">
-                    <span className="name">ha</span>
-                    <span className="tel">178****8909</span>
+                    <span className="name">{adder.realName}</span>
+                    <span className="tel">{adder.phone}</span>
                     <i />
-                    <p className="address">天津天津市河东区dsaddsfsdf</p>
+                    <span className="address">{adder.province + adder.city + adder.area + adder.street}</span>
                   </p>
                   <span className="rightIcon" />
                 </div>

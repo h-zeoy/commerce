@@ -26,7 +26,7 @@ class Test extends React.Component {
     super(props);
     this.state = {
       data: [],
-      pickerValue: [],
+      pickerValue: props.defaultVal,
     };
   }
 
@@ -40,7 +40,7 @@ class Test extends React.Component {
     const newArr = treeChildren.map(v => v.label).join(',');
     if (v[0] === '') {
       this.setState({
-        pickerValue: ['请选择'],
+        pickerValue: '请选择',
         data: newArr,
       });
       handleChild([], []);
@@ -67,11 +67,15 @@ class Test extends React.Component {
 
   render() {
     const { pickerValue } = this.state;
+    const { form } = this.props;
+    const { getFieldProps } = form;
     return (
       <Picker
         title="选择地区"
         data={area}
-        value={pickerValue}
+        {...getFieldProps('area', {
+          initialValue: pickerValue,
+        })}
         onChange={this.getSel.bind(this)}
         onOk={this.handleOn.bind(this)}
       >

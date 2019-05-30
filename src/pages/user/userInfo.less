@@ -1,0 +1,107 @@
+@import '../../../static/styles/_border.less';
+.user-ifo-wrap {
+    // padding: 0 .12rem;
+    .input-tips {
+        height: .32rem;
+        line-height: .32rem;
+        background: #faf7e1;
+        color: #d08965;
+        font-size: .12rem;
+        padding: 0 .12rem;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        i {
+            width: .14rem;
+            height: .14rem;
+            // margin-right: .12rem;
+            background:url('../../../static/image//user/close.png') no-repeat center center;
+            background-size: 100% 100%;
+        }
+    }
+    .uprows {
+        padding: 0 .12rem;
+        background: #fff;
+        .headicon {
+            line-height: .73rem;
+            .headicon-inner {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid rgba(0,0,0,.08);
+                label {
+                    color: #3d3d3d
+                }
+                .headpic {
+                    margin-right: .18em;
+                    border-radius: 50%;
+                    width: .6rem;
+                    height: .6rem;
+                }
+            }
+        }
+        .nick {
+            height: .44rem;
+            width: 100%;
+            border-bottom: 1px solid rgba(0,0,0,.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            label {
+                flex: 2
+            }
+            p {
+                width: 100%;
+                height: 100%;
+                flex: 8;
+            }
+            .nickname-input {
+                text-align: right;
+            }
+        }
+        .gender {
+            .type-radio {
+                display: flex;
+                align-items: center;
+                color: #8f8f8f;
+                p {
+                    display: flex;
+                    align-items: center;
+                    margin-left: .2rem;
+                    i {
+                        margin-right: .05rem;
+                        width: .15rem;
+                        height: .15rem;
+                        border-radius: 50%;
+                        background: url('../../../static/image/user/nocheck.png') no-repeat center center;
+                        background-size: 100% 100%;
+                    }
+                }
+            }
+        }
+    }
+    .btn-wrap {
+        padding: 0 .12rem;
+        .btn {
+            text-align: center;
+            width: 100%;
+            font-size: .17rem;
+            height: .44rem;
+            margin: 0 auto;
+            margin-top: .16rem;
+            line-height: .44rem;
+            border-radius: .5rem;
+        }
+        .save-info-btn {
+            background-color: #ff1a1a;
+            color: #fff;
+        }
+        .logout {
+            .border(1px, rgba(0,0,0,.08), solid);
+            border: 1px solid #ff1a1a;
+            color: #ff1a1a;
+        }
+    }
+    
+}

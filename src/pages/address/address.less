@@ -4,17 +4,23 @@
     background: #fff;
     position: absolute;
     padding: 0 .15rem;
-    p {
-        width: 100%;
-        height: .45rem;
-        width: 100%;
-        
-        display: flex;
-        input {
+    ul {
+        li {
             width: 100%;
-            border-bottom: 1px solid #ccc;
+            height: .45rem;
+            display: flex;
+            margin-top: .3rem;
+            position: relative;
+            div {
+                width: 100%;
+            }
+            input {
+                width: 100%;
+                border-bottom: 1px solid #ccc;
+            }
         }
     }
+    
 }
 
 .address-add {
@@ -47,4 +53,34 @@ input::-moz-placeholder {
 input:-ms-input-placeholder {
     color: #212121;
 
+}
+.input_error {
+    height: .25rem;
+    width: 100%;
+    color: rgb(255, 128, 128);
+    font-family: '宋体';
+    position: absolute;
+    top: -0.27rem;
+    left: 0;
+    z-index: 2;
+    display: none;
+    line-height: .25rem;
+    background: rgb(254, 230, 231);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(250, 162, 166);
+    border-image: initial;
+    padding: 0px .1rem 0px .08rem;
+    margin: 0;
+    border-radius: 0;
+    text-align: left;
+    i {
+        display: block;
+        height: .1rem;
+        top: .23rem;
+        width: .1rem;
+        position: absolute;
+        background: url('../../../static/image/user/jiantou.png') no-repeat center center;
+        background-size: 100% 100%;
+    }
 }
