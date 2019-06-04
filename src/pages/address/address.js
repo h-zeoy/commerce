@@ -97,7 +97,7 @@ class AddAddress extends Component {
             sessionStorage.setItem('address', JSON.stringify(area));
             Toast.info(result.data.msg, 1);
             setTimeout(() => {
-              history.push('/address');
+              history.goBack();
             }, 1000);
           } else {
             Toast.info('地址添加失败，请与客服联系', 1);
@@ -109,7 +109,7 @@ class AddAddress extends Component {
             Toast.info(result.data.msg, 1);
             sessionStorage.setItem('seleAddr', JSON.stringify(area));
             setTimeout(() => {
-              history.push('/address');
+              history.goBack();
             }, 1000);
           } else {
             Toast.info('地址修改失败，请与客服联系', 1);
@@ -129,8 +129,6 @@ class AddAddress extends Component {
 
   handleChild(v, n) {
     if (v.length !== 0) {
-      console.log(v, n);
-      console.log(typeof n);
       const areaName = n.split(',');
       const area = {
         'area': areaName[2],

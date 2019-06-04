@@ -1,15 +1,44 @@
 @import '../../../static/styles/_border.less';
+.cart-count {
+    background: #fff;
+    display:flex;
+    justify-content: space-between;
+    padding: 0 .2rem;
+    align-items: center;
+    height: .4rem;
+    margin-bottom: .08rem;
+    .border(1px 0 0 0, #e4e4e4, solid );
+    p:first-child {
+        .border(1px, #ff1a1a, solid ,30px);
+        padding: .02rem .12rem;
+        color: #ff1a1a;
+    }
+    p:last-child {
+        color: #333;
+        font-weight: 700;
+        font-size: .14rem;
+    }
+}
 .cart-item-list {
+    margin-bottom: .45rem;
+}
+.cart-item-wrap {
     background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: .08rem;
     .cart-select-dot {
         width: .2rem;
         height: .2rem;
-        background: url('../../../static/image/list//no-selected.png') no-repeat center center;
+        background: url('../../../static/image/list/selected.png') no-repeat center center;
         background-size: 100% 100%;
+        margin-right: .12rem;
+    }
+    .cart-noselect-dot {
+        background: url('../../../static/image/list/no-selected.png') no-repeat center center;
+        background-size: 100% 100%;
+        width: .2rem;
+        height: .2rem;
         margin-right: .12rem;
     }
     .cart-item-wrapper {
@@ -58,15 +87,12 @@
                 }
                 
             } 
-        }
-        .cart-edit {
-            display: flex;
-            justify-content: space-between;
             .cart-control {
                 display: flex;
                 height: .33rem;
                 margin-left: .1rem;
                 width: 1.4rem;
+                justify-content: flex-end;
                 .mul-btn {
                     width: .28rem;
                     height: .28rem;
@@ -103,6 +129,11 @@
                     box-shadow: none;
                 }
             }
+        }
+        .cart-edit {
+            display: flex;
+            justify-content: space-between;
+           
             .cart-delete{
                 height: .92rem;
                 line-height: .92rem;
@@ -115,7 +146,72 @@
         }
     }
 }
+.gopay-bar {
+    height: .45rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-weight: 400;
+    padding-left: .12rem;
+    background: #FFF;
+    font-size: .15rem;
+    .cart-select-dot {
+        width: .2rem;
+        height: .2rem;
+        background: url('../../../static/image/list//no-selected.png') no-repeat center center;
+        background-size: 100% 100%;
+        margin-right: .12rem;
+    }
+    .cart-noselect-dot {
+        background: url('../../../static/image/list/selected.png') no-repeat center center;
+        background-size: 100% 100%;
+        width: .2rem;
+        height: .2rem;
+        margin-right: .12rem;
+    }
+    .pay-info {
+        flex: 1;
+        text-align: right;
+        background: #fff;
+        height: 100%;
+        padding-right: .1rem;
+        .pay-num {
+            color: #ff1a1a;
+            font-weight: 700;
+            font-size: .14rem;
+            font-family: 'PingFang-SC-Regular';
+            padding-top: .05rem;
+            
+        }
+        .pay-tips {
+            color: #999;
+            font-size: .12rem;
+        }
+    }
+    .pay-btn {
+        height: 100%;
+        width:1.08rem;
+        line-height: .45rem;
+        text-align: center;
+        color: #fff;
+        background: #ff1a1a;
+    }
+}
+
 img {
     width: 100%;
     height: 100%;                
 }
+
+// // {
+//     defaultIndex === index
+//       ? (
+        
+//         </div>
+//       ) : (
+        
+//       )
+//   }

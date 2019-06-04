@@ -10,3 +10,10 @@ export const getCookie = (value) => {
   }
   return '';
 };
+
+export const delCookie = (value) => {
+  const exp = new Date();
+  exp.setTime(exp.getTime() - 1);
+  const cval = getCookie(value);
+  if (cval != null) document.cookie = `${value}=${cval};expires=${exp.toGMTString()}`;
+};

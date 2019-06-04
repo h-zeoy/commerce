@@ -1,6 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { getCookie } from 'utils/cookie';
+import Toast from 'antd-mobile/lib/toast'; // 加载 JS
 import MyFileUI from './myFileUI';
+import 'antd-mobile/lib/toast/style/css'; // 加载 CSS
 
 class myFile extends React.Component {
   constructor(props) {
@@ -12,21 +15,29 @@ class myFile extends React.Component {
   }
 
   componentWillMount() {
-    // request.setRequestHeader("token", "xxxx");
-    getCookie('X-Root-Auth-Token')
-      ? this.setState({
+    const { history } = this.props;
+    console.log();
+    if (getCookie('X-Root-Auth-Token')) {
+      this.setState({
         loading: false,
-      })
-      : this.setState({
+      });
+    } else {
+      this.setState({
         loading: true,
       });
+      Toast.info('请登陆', 1);
+      const timer = setTimeout(() => {
+        clearTimeout(timer);
+        history.push('/login');
+      }, 1000);
+    }
   }
 
   render() {
     const { edit, list, loading } = this.state;
     return (
       loading
-        ? <div>登录</div>
+        ? ''
         : (
           <MyFileUI
             edit={edit}
@@ -38,4 +49,4 @@ class myFile extends React.Component {
   }
 }
 
-export default myFile;
+export default withRouter(myFile);

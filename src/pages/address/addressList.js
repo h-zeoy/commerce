@@ -9,7 +9,6 @@ import 'antd-mobile/lib/toast/style/css'; // 加载 CSS
 import NavBar from 'components/plugins/navbar';
 import ComponentList from 'components/componentList/componentList';
 import './addressList.less';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 
 class Address extends Component {
@@ -18,6 +17,7 @@ class Address extends Component {
     this.state = {
       listData: [],
       query: '',
+      loading: true,
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -38,44 +38,48 @@ class Address extends Component {
   handleClick(item) {
     const { history } = this.props;
     sessionStorage.setItem('seleAddr', JSON.stringify(item));
-    const query = ((history.location.search).split('?')[1]).split('=')[1];
-    const timer = setTimeout(() => {
-      clearTimeout(timer);
-      history.push({
-        pathname: '/pay',
-        search: `?orderId=${query}`,
-      });
+    history.push({
+      pathname: '/pay',
+      search: '?from=address',
     });
-    console.log(history);
   }
 
   init() {
+    const { history } = this.props;
     axios.get('api/address/list', {
       headers: {
         'X-Access-Token': getCookie('X-Root-Auth-Token'),
       },
     }).then((result) => {
-      const { data } = result.data;
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].isDefault) {
-          sessionStorage.setItem('address', JSON.stringify(data[i]));
-          data.unshift(data[i]);
-          data.splice(i + 1, 1);
+      if (result.data.success) {
+        this.setState({
+          loading: false,
+        });
+        const { data } = result.data;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].isDefault) {
+            sessionStorage.setItem('address', JSON.stringify(data[i]));
+            data.unshift(data[i]);
+            data.splice(i + 1, 1);
+          }
         }
+        this.setState({
+          listData: data,
+        });
+      } else if (!result.data.success && result.data.code === 101) {
+        Toast.info(result.data.data.msg, 1);
+        const timer = setTimeout(() => {
+          clearTimeout(timer);
+          history.push('/login');
+        }, 1000);
       }
-      this.setState({
-        listData: data,
-      });
     });
   }
 
   handleEdit(item) {
     const { history } = this.props;
     sessionStorage.setItem('seleAddr', JSON.stringify(item));
-    history.push({
-      pathname: '/address/edit',
-      search: `?id=${item.id}`,
-    });
+    history.goBack();
   }
 
   async handleDelete(item) {
@@ -98,32 +102,35 @@ class Address extends Component {
   render() {
     const {
       listData,
+      loading,
     } = this.state;
     return (
-      <div className="address-wrap">
-        <NavBar
-          onRef={
+      !loading ? (
+        <div className="address-wrap">
+          <NavBar
+            onRef={
         this.onRef
       }
-          navHandleClick={
+            navHandleClick={
         this.navHandleClick
       }
-          title="收货地址"
-          icon="新增"
-        />
-        <ComponentList
-          handleDelete={this.handleDelete.bind(this)}
-          handleEdit={this.handleEdit.bind(this)}
-          listData={listData}
-          handleClick={this.handleClick.bind(this)}
-          type="address"
-        />
-        <footer onClick={
+            title="收货地址"
+            icon="新增"
+          />
+          <ComponentList
+            handleDelete={this.handleDelete.bind(this)}
+            handleEdit={this.handleEdit.bind(this)}
+            listData={listData}
+            handleClick={this.handleClick.bind(this)}
+            type="address"
+          />
+          <footer onClick={
         this.handleClick
       }
-        > <Link to="/address/add">新增收货地址</Link>
-        </footer>
-      </div>
+          > <Link to="/address/add">新增收货地址</Link>
+          </footer>
+        </div>
+      ) : ''
     );
   }
 }

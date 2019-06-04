@@ -2,38 +2,45 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import './goodsDetail.less';
 import { SwiperComponent } from '../../../components/plugins/swiper';
+import MarkLayer from '../../../components/markLayer/markLayer';
+import sw1 from '../../../static/image/detail/sw1.jpg';
+import sw2 from '../../../static/image/detail/sw2.jpg';
+import sw3 from '../../../static/image/detail/sw3.jpg';
+import sw4 from '../../../static/image/detail/sw4.jpg';
+import d1 from '../../../static/image/detail/d1.jpeg';
+import d2 from '../../../static/image/detail/d2.jpeg';
+import d3 from '../../../static/image/detail/d3.jpeg';
+import d4 from '../../../static/image/detail/d4.jpeg';
+import d5 from '../../../static/image/detail/d5.jpeg';
+import d6 from '../../../static/image/detail/d6.jpeg';
+import d7 from '../../../static/image/detail/d7.jpeg';
+import d8 from '../../../static/image/detail/d8.jpeg';
+import d9 from '../../../static/image/detail/d9.jpeg';
+import d10 from '../../../static/image/detail/d10.jpeg';
+import d11 from '../../../static/image/detail/d11.jpeg';
+import d12 from '../../../static/image/detail/d12.jpeg';
+import d13 from '../../../static/image/detail/d13.jpeg';
+import d14 from '../../../static/image/detail/d14.jpeg';
+import d15 from '../../../static/image/detail/d15.jpeg';
+import d16 from '../../../static/image/detail/d16.jpeg';
 
 
 class goodsDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: '"平盖款 粉色450ml"',
-      imgUrl: [
-        '../../../static/image/detail/sw1.jpg',
-        '../../../static/image/detail/sw2.jpg',
-        '../../../static/image/detail/sw3.jpg',
-        '../../../static/image/detail/sw4.jpg'],
-      imgDetailUrl: ['../../../static/image/detail/d1.jpeg',
-        '../../../static/image/detail/d2.jpeg',
-        '../../../static/image/detail/d3.jpeg',
-        '../../../static/image/detail/d1.jpeg',
-        '../../../static/image/detail/d4.jpeg',
-        '../../../static/image/detail/d5.jpeg',
-        '../../../static/image/detail/d6.jpeg',
-        '../../../static/image/detail/d7.jpeg',
-        '../../../static/image/detail/d8.jpeg',
-        '../../../static/image/detail/d9.jpeg',
-        '../../../static/image/detail/d10.jpeg',
-        '../../../static/image/detail/d11.jpeg',
-        '../../../static/image/detail/d12.jpeg',
-        '../../../static/image/detail/d13.jpeg',
-        '../../../static/image/detail/d14.jpeg',
-        '../../../static/image/detail/d15.jpeg',
-        '../../../static/image/detail/d16.jpeg',
-        '../../../static/image/detail/d17.jpg',
-        '../../../static/image/detail/d18.jpg'],
-      detailData: {},
+      data: '"未选择任何商品"',
+      imgUrl: [],
+      imgSrc: '',
+      detail: {},
+      active: false,
+      default: 0,
+      defaultOne: 0,
+      defaultTwo: 0,
+      defaultIndex: 0,
+      checkGoods: '',
+      checkId: [0, 0],
+      stock: 0,
     };
   }
 
@@ -50,23 +57,125 @@ class goodsDetail extends React.Component {
     this.isUnmount = false;
   }
 
+  onRef = (ref) => {
+    this.child = ref;
+  }
+
+  childHandleClose() {
+    this.setState({
+      active: false,
+    });
+  }
+
   async init() {
     const { history } = this.props;
     const id = String(history.location.search).split('=')[1];
+    console.log(String(history.location.search).split('=')[1]);
     const _ = await fetch(`http://localhost:3000/api/baby/listone?id=${id}`, {
       mode: 'cors',
       cache: 'default',
     }).then(response => response.json());
+    const { goodsInfo } = _.data;
+    const checkDate = [];
+    for (let i = 0; i < goodsInfo.title.length; i++) {
+      checkDate[i] = (goodsInfo.info[goodsInfo.title[i]])[0];
+    }
     this.isUnmount
-      ? this.setState({ detailData: [..._.data] })
+      ? this.setState({
+        detail: _.data,
+        imgUrl: _.data.imgUrl.split(','),
+        imgSrc: (_.data.goodsInfo.info['图片'])[0],
+        checkGoods: checkDate.join(','),
+        stock: (goodsInfo.stock[0])[0],
+      })
       : '';
-    console.log(_);
+  }
+
+  handleClick() {
+    const { active } = this.state;
+    this.setState({
+      active: !active,
+    });
+  }
+
+  childHandleOne(index, it) {
+    const { detail, checkGoods, stock, checkId } = this.state;
+    const { goodsInfo } = detail;
+    const img = detail.goodsInfo.info['图片'];
+    const check = checkGoods.split(',');
+    checkId[0] = index;
+    this.setState({
+      defaultOne: index,
+      imgSrc: img[index],
+      checkGoods: check.join(','),
+      stock: (goodsInfo.stock[checkId[0]])[checkId[1]],
+    });
+  }
+
+  childHandleTwo(index, it) {
+    const { detail, checkGoods, checkId } = this.state;
+    const { goodsInfo } = detail;
+    const check = checkGoods.split(',');
+    check[1] = it;
+    checkId[1] = index;
+    this.setState({
+      defaultTwo: index,
+      checkGoods: check.join(','),
+      stock: (goodsInfo.stock[checkId[0]])[checkId[1]],
+    });
+  }
+
+  childHandleIndex(index, it) {
+    const { detail, checkGoods, checkId } = this.state;
+    const check = checkGoods.split(',');
+    const { goodsInfo } = detail;
+    check[0] = it;
+    checkId[0] = index;
+    this.setState({
+      defaultIndex: index,
+      stock: goodsInfo.stock[checkId[0]],
+    });
+  }
+
+  childHandleAddCart(count) {
+
+  }
+
+  childHandleGoBuy(count) {
+    const { checkGoods, detail } = this.state;
+    const { history } = this.props;
+    const goodsInfo = {
+      checkGoods,
+      thumbnailUrl: detail.thumbnailUrl,
+      num: count,
+      price: detail.price,
+      name: detail.name,
+    };
+    sessionStorage.setItem('goodsInfo', JSON.stringify(goodsInfo));
   }
 
   render() {
-    const { imgUrl, imgDetailUrl, data, detailData } = this.state;
+    const { imgUrl, detail, active, defaultOne, defaultTwo, defaultIndex, imgSrc, checkGoods, stock } = this.state;
     return (
       <div className="detail-wrap">
+        <MarkLayer
+          active={active}
+          onRef={this.onRef}
+          childHandleClose={this.childHandleClose.bind(this)}
+          childHandleOne={this.childHandleOne.bind(this)}
+          childHandleTwo={this.childHandleTwo.bind(this)}
+          detailData={detail.goodsInfo}
+          defaultOne={defaultOne}
+          defaultTwo={defaultTwo}
+          imgSrc={imgSrc}
+          price={detail.price}
+          data={checkGoods}
+          defaultIndex={defaultIndex}
+          stock={stock}
+          childHandleAddCart={this.childHandleAddCart.bind(this)}
+          childHandleGoBuy={this.childHandleGoBuy.bind(this)}
+          type="detail"
+        />
         {/* 轮播图 */}
         <aside className="swiper-container swiper-container-banner">
           <ul className="swiper-wrapper swiper-img-detail">
@@ -82,7 +191,7 @@ class goodsDetail extends React.Component {
           </ul>
           <div className="swiper-pagination" />
         </aside>
-        <div className="sale-scene-area onsale">
+        {/* <div className="sale-scene-area onsale">
           <img className="scene-icon" src="http://h0.hucdn.com/open201915/61538a1101becc26_183x45.png" alt="" />
           <div className="panic-buy-time-box">
             <span className="panic-buy-time-txt">距结束仅剩</span>
@@ -94,29 +203,28 @@ class goodsDetail extends React.Component {
               <span className="time">59.9</span>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="detail-sale-wrap">
           <div className="sale-price-wrap">
             <div className="sale-price-con">
-              <p className="sale-price">¥19.9</p>
-              <p className="sale-origin">¥49.9</p>
+              <p className="sale-price">¥{detail.price}</p>
+              <p className="sale-origin">¥{detail.linePrice}</p>
             </div>
-            <div className="sale-progress-wrap">940人已团</div>
+            <div className="sale-progress-wrap">{detail.person}人已团</div>
           </div>
           <div className="sale-title-wrap">
             <div className="sale-title">
-              <h3 data-sync="" data-sync-title=""> {detailData.name} </h3>
+              <h3 data-sync="" data-sync-title=""> {detail.name} </h3>
             </div>
           </div>
         </div>
         <div className="promotion-wrap">
           <div className="label">服务</div>
           <div className="info">全场包邮· 平台保价· 正品保证· 24小时发货</div>
-          {/* <div className="go-arrow iconfont"></div> */}
         </div>
-        <div className="sku-wrap">
+        <div className="sku-wrap" onClick={this.handleClick.bind(this)}>
           <div className="sku">
-            <span className="J_skuText">已选 { data }</span>
+            <span className="J_skuText">已选 "{ checkGoods }"</span>
             <i />
           </div>
         </div>
@@ -124,15 +232,7 @@ class goodsDetail extends React.Component {
           <div className="title-container">
             <span className="title">图文详情</span>
           </div>
-          {
-            imgDetailUrl.map((it) => {
-              return (
-                <div className="image-container" key={Math.random()}>
-                  <img src={it} alt="" />
-                </div>
-              );
-            })
-          }
+          <div dangerouslySetInnerHTML={{ __html: detail.detail }} />
         </div>
         <footer>
           <div className="btn-container">

@@ -7,7 +7,6 @@ import addressList from 'pages/address/addressList';
 import address from 'pages/address/address';
 import goodsList from 'pages/goods/goodsList';
 import goodsDetail from 'pages/goods/goodsDetail';
-import goodsEdit from '@/backstage/goodsEdit';
 import login from './pages/user/login';
 import register from './pages/user/register';
 import search from './pages/search/search';
@@ -19,6 +18,8 @@ import activitytwo from './pages/activity/activity2';
 import brandClear from './pages/activity/brandClear';
 import hotSale from './pages/activity/hotSale';
 import userInfo from './pages/user/userInfo';
+import pass from './pages/user/pass';
+import result from '../components/plugins/result';
 
 class App extends Component {
   render() {
@@ -46,14 +47,15 @@ class App extends Component {
           <Route exact path="/login" component={login} />
           <Route exact path="/register" component={register} />
           <Route exact path="/userInfo" component={userInfo} />
+          <Route exact path="/pass" component={pass} />
           {/* -------------------------- 用户 end------------------------------ */}
 
-          {/* --------------------------    、订单    -------------------------- */}
+          {/* --------------------------    订单    -------------------------- */}
           <Route exact path="/order/list" component={orderList} />
           <Route exact path="/order/detail" component={orderDetail} />
           {/* -------------------------- 订单 end------------------------------ */}
 
-          {/* --------------------------    、订单    -------------------------- */}
+          {/* --------------------------   订单    -------------------------- */}
           <Route exact path="/pay" component={pay} />
           <Route exact path="/aginPay" component={orderDetail} />
           {/* -------------------------- 订单 end------------------------------ */}
@@ -64,6 +66,8 @@ class App extends Component {
           <Route exact path="/brandClear" component={brandClear} />
           <Route exact path="/hotSale" component={hotSale} />
           {/* -------------------------- 活动 end------------------------------ */}
+          <Route exact path="/result" component={result} />
+
         </Switch>
       </div>
     );

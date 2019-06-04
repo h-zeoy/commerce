@@ -41,6 +41,9 @@
                 }
             }
         }
+        .gender {
+            background: #ccc;
+        }
         .nick {
             height: .44rem;
             width: 100%;
@@ -55,28 +58,31 @@
                 width: 100%;
                 height: 100%;
                 flex: 8;
+                line-height: .42rem;
+                text-align: right;
+                input {
+                    width: 100%;
+                    height: 100%;
+                }
             }
             .nickname-input {
                 text-align: right;
             }
         }
-        .gender {
+        .nick {
             .type-radio {
                 display: flex;
                 align-items: center;
                 color: #8f8f8f;
-                p {
-                    display: flex;
-                    align-items: center;
-                    margin-left: .2rem;
-                    i {
-                        margin-right: .05rem;
-                        width: .15rem;
-                        height: .15rem;
-                        border-radius: 50%;
-                        background: url('../../../static/image/user/nocheck.png') no-repeat center center;
-                        background-size: 100% 100%;
-                    }
+                input{
+                    z-index: 3;
+                    display: block;
+                    width: .2rem;
+                    height: .2rem;
+                    cursor: pointer;
+                }
+                label {
+                    margin-right: .1rem;
                 }
             }
         }

@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Toast from 'antd-mobile/lib/toast'; // 加载 JS
+import 'antd-mobile/lib/toast/style/css'; // 加载 CSS
 import Tabs from 'antd-mobile/lib/tabs'; // 加载 JS
 import 'antd-mobile/lib/tabs/style/css'; // 加载 CSS
 import './login.less';
@@ -32,11 +34,12 @@ class Signin extends React.Component {
   }
 
   componentDidUpdate(prevProp, prevState) {
+    console.log(prevState.isClick);
     if (prevState.seconds <= 0) {
       clearInterval(this.timer);
       this.setState({
         seconds: 60,
-        isClick: false,
+        isClick: true,
       });
     }
   }
@@ -86,10 +89,11 @@ class Signin extends React.Component {
     if (_.success && flag) {
       document.cookie = `X-Root-Auth-Token=${_.data.token}`;
       const { history } = this.props;
-      console.log('登录成功');
+      sessionStorage.setItem('user', _.data.username);
+      Toast.info('登录成功');
       history.push('/home');
     } else {
-      console.log(_.data.msg);
+      Toast.info(_.data.msg);
     }
   }
 
@@ -101,22 +105,30 @@ class Signin extends React.Component {
     } else {
       clearInterval(this.timer);
       const _ = (await axios.post('api/users/sendcode', data)).data;
-      if (_.data.success) {
+      if (_.success) {
+        console.log(11111);
         that.timer = setInterval(() => {
           that.setState(preState => ({
             seconds: preState.seconds - 1,
-            isClick: true,
+            isClick: false,
           }));
         }, 1000);
-        console.log(_.data.msg);
+        Toast.info(_.data.msg);
       } else {
-        console.log(_.data.msg);
+        Toast.info(_.data.msg);
       }
     }
   }
 
+  goSignUp() {
+    const { history } = this.props;
+    history.push({
+      pathname: '/register',
+    });
+  }
+
   render() {
-    const { userVal, userPassVal, telVal, codeVal, tabData, isClick } = this.state;
+    const { userVal, userPassVal, telVal, codeVal, tabData, isClick, seconds } = this.state;
     return (
       <Tabs
         tabs={tabData.list}
@@ -156,7 +168,8 @@ class Signin extends React.Component {
             />
             <p id="Msg" className="input_error Msg"><i />密码必须需包含数字、大写字母、小写字母</p>
           </li>
-          <li onClick={this.sigin.bind(this, 'user')}> 登录</li>
+          <li className="login-btn" onClick={this.sigin.bind(this, 'user')}> 登录</li>
+          <li className="login-btn" onClick={this.goSignUp.bind(this)}> 前往注册</li>
         </ul>
         <ul className="tab-box">
           <li>
@@ -190,11 +203,12 @@ class Signin extends React.Component {
               maxLength="6"
             />
             {
-            isClick ? <p onClick={this.sendCode.bind(this, telVal)}>获取验证码</p> : <p>60s</p>
+            isClick ? <p onClick={this.sendCode.bind(this, telVal)}>获取验证码</p> : <p>{seconds}s</p>
           }
             <p id="Msg" className="input_error Msg"><i />请您输入正确的验证码</p>
           </li>
-          <li onClick={this.sigin.bind(this, 'tel')}>登录</li>
+          <li className="login-btn" onClick={this.sigin.bind(this, 'tel')}>登录</li>
+          <li className="login-btn" onClick={this.goSignUp.bind(this)}>前往注册</li>
         </ul>
       </Tabs>
     );

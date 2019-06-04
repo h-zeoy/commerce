@@ -10,7 +10,7 @@ class MyFileUI extends Component {
     return (
       <div className="myfile-wrap">
         <div className="my-info">
-          <Link to="/perinfo">
+          <Link to="/userInfo">
             <div className="my-info-cnt">
               <div className="head" />
               <p className="info"><span>178****8206</span></p>
@@ -20,21 +20,21 @@ class MyFileUI extends Component {
         <div className="mylist-wrap">
           <ul>
             <li className="order">
-              <Link to="/orderList" className="a-border">
+              <Link to="/order/list?status=0" className="a-border">
                 我的订单
                 <span className="next-page">全部订单<i className="iconfont" /></span>
               </Link>
             </li>
             <li className="order-list">
-              <Link to="/orderList">
+              <Link to="/order/list?status=1">
                 <img className="box-icon" src={daifu} alt="" />
                 <p>待付款</p>
               </Link>
-              <Link to="/orderList">
+              <Link to="/order/list?status=2">
                 <img className="box-icon" src={daifa} alt="" />
                 <p>待发货</p>
               </Link>
-              <Link to="/orderList">
+              <Link to="/order/list?status=3">
                 <img className="box-icon" src={daishou} alt="" />
                 <p>待收货</p>
               </Link>

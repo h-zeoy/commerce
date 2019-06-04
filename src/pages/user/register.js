@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Toast from 'antd-mobile/lib/toast'; // 加载 JS
+import 'antd-mobile/lib/toast/style/css'; // 加载 CSS
 import Tabs from 'antd-mobile/lib/tabs'; // 加载 JS
 import 'antd-mobile/lib/tabs/style/css'; // 加载 CSS
 import './login.less';
@@ -22,7 +24,7 @@ class Signup extends React.Component {
         list: [{ index: 0, title: '用户名注册' }, { index: 1, title: '快速注册' }],
       },
       data: [],
-      isClick: false,
+      isClick: true,
       userAginPassVal: '',
       seconds: 60,
     };
@@ -65,16 +67,16 @@ class Signup extends React.Component {
     } else {
       clearInterval(this.timer);
       const _ = (await axios.post('api/users/sendcode', data)).data;
-      if (_.data.success) {
+      if (_.success) {
         that.timer = setInterval(() => {
           that.setState(preState => ({
             seconds: preState.seconds - 1,
-            isClick: true,
+            isClick: false,
           }));
         }, 1000);
-        console.log(_.data.msg);
+        Toast.info(_.data.msg);
       } else {
-        console.log(_.data.msg);
+        Toast.info(_.data.msg);
       }
     }
   }
@@ -96,9 +98,13 @@ class Signup extends React.Component {
       flag ? _ = axios.post('api/users/signup', data)
         .then((_) => {
           if (_.data.success) {
-            console.log(_.data.data.username);
+            Toast.info('注册成功,前往登陆');
+            const { history } = this.props;
+            setTimeout(() => {
+              history.push('/login');
+            }, 1000);
           } else {
-            console.log(_.data.data.msg);
+            Toast.info(_.data.data.msg);
           }
         }) : '';
     } else {
@@ -114,9 +120,13 @@ class Signup extends React.Component {
       const data = { 'way': 2, 'tel': telVal, 'code': codeVal, 'TemplateCode': 'SMS_165676756' };
       flag ? _ = axios.post('api/users/signup', data).then((_) => {
         if (_.data.success) {
-          console.log(_.data.data.msg);
+          Toast.info('注册成功,前往登陆');
+          const { history } = this.props;
+          setTimeout(() => {
+            history.push('/login');
+          }, 1000);
         } else {
-          console.log(_.data.data);
+          Toast.info(_.data.data.msg);
         }
       }) : '';
     }
@@ -179,7 +189,7 @@ class Signup extends React.Component {
             />
             <p id="Msg" className="input_error Msg"><i />两次输入的密码不一致，请重新输入</p>
           </li>
-          <li onClick={this.sigup.bind(this, 'user')}> 注册</li>
+          <li className="login-btn" onClick={this.sigup.bind(this, 'user')}> 注册</li>
         </ul>
         <ul className="tab-box">
           <li>
@@ -191,11 +201,11 @@ class Signup extends React.Component {
             <img src={code} alt="" />
             <input type="text" onChange={this.handelChange.bind(this, 'code')} defaultValue={codeVal} placeholder="请输入验证码" maxLength="6" />
             {
-            !isClick ? <p onClick={this.sendCode.bind(this)}>获取验证码</p> : <p>{ seconds }s</p>
+            isClick ? <p onClick={this.sendCode.bind(this)}>获取验证码</p> : <p>{ seconds }s</p>
           }
             <p id="Msg" className="input_error Msg"><i />请您输入正确的验证码</p>
           </li>
-          <li onClick={this.sigup.bind(this, 'tel')}>注册</li>
+          <li className="login-btn" onClick={this.sigup.bind(this, 'tel')}>注册</li>
         </ul>
       </Tabs>
     );

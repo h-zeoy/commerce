@@ -6,6 +6,7 @@ class CompomemtListBig extends React.Component {
     const { handlList } = this.props;
     this.setState({
       indexDefult: item.index,
+      value: '',
     });
     handlList(item);
   }
@@ -26,7 +27,8 @@ class CompomemtListBig extends React.Component {
   }
 
   render() {
-    const { item, type } = this.props;
+    const { item, type, handleInput, isTime, edit, defaultIndex, index } = this.props;
+    console.log(defaultIndex);
     if (type === 'big') {
       return (
         <div className="list-item1" onClick={this.handleClickItem.bind(this, item)}>
@@ -37,15 +39,49 @@ class CompomemtListBig extends React.Component {
           </div>
         </div>
       );
+    } else if (type === 'orderlist') {
+      return (
+        <div className="order-item-wrap">
+          <div className="title">
+            <span className="text">订单编号：{item.orderNo}</span>
+            {/* 交易关闭 */}
+            <span className="status">{item.status}</span>
+          </div>
+          <div className="order-goods-info">
+            <img className="icon" src={item.goodsData[0].thumbnailUrl} alt="" />
+            <div className="order-list-info">
+              <p className="title">{item.goodsData[0].name}</p>
+              <p className="sku">{item.goodsData[0].info}</p>
+              <p className="money"><span className="price">¥{item.goodsData[0].price}</span><span className="num">x{item.goodsData[0].num}</span></p>
+            </div>
+          </div>
+          <div className="total">
+            <div className="info">共1件商品  总计：<strong>¥{item.goodsData[0].price}</strong></div>
+            {
+              item.status === '待发货'
+                ? (
+                  <div className="btns">
+                    <span className="btn-red">查看订单</span>
+                  </div>
+                )
+                : (
+                  <div className="btns">
+                    <span>取消订单</span><span className="btn-red">待付款</span>
+                  </div>
+                )
+            }
+          </div>
+        </div>
+      );
     } else if (type === 'small') {
       return (
         <div className="list-item2">
           <img src={item.thumbnailUrl} alt="" />
           <div className="list-item-title">
-            <p className="title">{item.title}</p>
+            <p className="title" />
             {
               item.linePrice
-                ? <p className="list-item-price"><span>¥{item.price}</span><span className="line-price">¥{item.price}</span></p>
+                ? <p className="list-item-price"><span>¥{item.price}</span><span className="line-price">¥{item.linePrice}</span></p>
                 : <p className="list-item-price"><span>¥{item.price}</span></p>
             }
           </div>
@@ -100,7 +136,7 @@ class CompomemtListBig extends React.Component {
       return (
         <div className="order-list">
           <div className="order-item">
-            <img src={item.img} alt="" />
+            <img src={item.thumbnailUrl} alt="" />
             <div className="order-info">
               <h4>{item.name}</h4>
               <p>{item.info}</p>
@@ -110,13 +146,23 @@ class CompomemtListBig extends React.Component {
               </div>
             </div>
           </div>
+          <div className="order-remark">
+            <input
+              type="text"
+              placeholder="买家留言（选填）"
+              onChange={handleInput}
+            />
+          </div>
+          <div className="order-sum">
+            <div> <span className="u-sum-left">小计:</span> <span className="order-sum-price">¥{item.price}</span> </div>
+          </div>
         </div>
       );
     } else if (type === 'orderDetail') {
       return (
         <div className="order-list">
           <div className="order-item">
-            <img src={item.img} alt="" />
+            <img src={item.thumbnailUrl} alt="" />
             <div className="order-info">
               <h4>{item.name}</h4>
               <p>{item.info}</p>

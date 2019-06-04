@@ -8,13 +8,19 @@ class TabExample extends React.Component {
     super(props);
     const { tabData } = this.props;
     this.state = {
-      defaultIndex: tabData.default,
+      defaultIndex: props.index,
     };
   }
 
-  componentDidMount() {
-    const { listData } = this.props;
-    console.log(listData);
+  componentWillReceiveProps(nextProps) {
+    const { index } = this.props;
+    const { defaultIndex } = this.state;
+    console.log(nextProps.index);
+    if (nextProps.index !== defaultIndex) {
+      this.setState({
+        defaultIndex: nextProps.index,
+      });
+    }
   }
 
   handleTabClick(tab, index) {
@@ -29,10 +35,11 @@ class TabExample extends React.Component {
   render() {
     const { tabData, listData } = this.props;
     const { defaultIndex } = this.state;
+    console.log(defaultIndex);
     return (
       <div>
         <Tabs
-          tabs={tabData.list}
+          tabs={tabData}
           initialPage={defaultIndex}
           animated={false}
           useOnPan={false}
@@ -40,11 +47,11 @@ class TabExample extends React.Component {
           onTabClick={this.handleTabClick.bind(this)}
         >
           {
-            tabData.list.map((item, index) => {
+            tabData.map((item, index) => {
               return (
                 index === defaultIndex ? (
-                  <div key={Math.random()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
-                    <ComponentList listData={listData} type="big" />
+                  <div key={Math.random()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ComponentList listData={listData} type="orderlist" />
                   </div>
                 ) : ''
               );
